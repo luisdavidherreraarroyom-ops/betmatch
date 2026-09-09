@@ -18,10 +18,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import com.example.betmatch.core.ui.AppDestinations
 import com.example.betmatch.core.ui.screens.BetsScreen
-import com.example.betmatch.core.ui.screens.CreateTournamentScreen
 import com.example.betmatch.core.ui.screens.MatchesScreen
 import com.example.betmatch.core.ui.screens.ProfileScreen
-import com.example.betmatch.core.ui.screens.TournamentsScreen
+import com.example.betmatch.core.ui.screens.TournamentsNavHost
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,7 +42,6 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun BetMatchApp() {
     var currentDestination by remember { mutableStateOf(AppDestinations.TOURNAMENTS) }
-    var isCreatingTournament by remember { mutableStateOf(false) }
 
     NavigationSuiteScaffold(
         navigationSuiteItems = {
@@ -56,26 +54,17 @@ fun BetMatchApp() {
                         )
                     },
                     label = { Text(destination.label) },
-                    selected = destination == currentDestination && !isCreatingTournament,
-                    onClick = {
-                        isCreatingTournament = false
-                        currentDestination = destination
-                    }
+                    selected = destination == currentDestination,
+                    onClick = { currentDestination = destination }
                 )
             }
         }
     ) {
-        if (isCreatingTournament) {
-            CreateTournamentScreen(onBackClick = { isCreatingTournament = false })
-        } else {
-            when (currentDestination) {
-                AppDestinations.TOURNAMENTS -> TournamentsScreen(
-                    onCreateTournamentClick = { isCreatingTournament = true }
-                )
-                AppDestinations.MATCHES -> MatchesScreen()
-                AppDestinations.BETS -> BetsScreen()
-                AppDestinations.PROFILE -> ProfileScreen()
-            }
+        when (currentDestination) {
+            AppDestinations.TOURNAMENTS -> TournamentsNavHost()
+            AppDestinations.MATCHES -> MatchesScreen()
+            AppDestinations.BETS -> BetsScreen()
+            AppDestinations.PROFILE -> ProfileScreen()
         }
     }
 }
