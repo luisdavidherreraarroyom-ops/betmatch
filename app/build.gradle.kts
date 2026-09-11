@@ -46,6 +46,8 @@ dependencies {
     implementation(libs.androidx.navigation.compose)
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
+    implementation(libs.retrofit.core)
+    implementation(libs.retrofit.gson)
 
     // Jetpack Compose Design System
     implementation(platform("androidx.compose:compose-bom:2024.02.00"))

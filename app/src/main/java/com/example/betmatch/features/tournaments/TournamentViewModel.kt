@@ -14,12 +14,19 @@ import kotlinx.coroutines.launch
 
 class TournamentViewModel(private val repository: TournamentRepository) : ViewModel() {
 
+
     val tournaments: StateFlow<List<TournamentEntity>> = repository.allTournaments
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5000),
             initialValue = emptyList()
         )
+
+    init {
+        viewModelScope.launch {
+            repository.refreshTournaments()
+        }
+    }
 
     fun addTournament(title: String, rules: String, maxPlayers: Int) {
         viewModelScope.launch {
