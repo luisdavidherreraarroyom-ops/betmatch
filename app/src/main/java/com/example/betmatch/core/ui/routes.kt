@@ -7,3 +7,12 @@ data object TournamentsRoute
 
 @Serializable
 data object CreateTournamentRoute
+
+@Serializable
+data object MatchesRoute
+
+@Serializable
+data object CreateMatchRoute
+
+@Serializable
+data class MatchDetailRoute(val matchId: Long)

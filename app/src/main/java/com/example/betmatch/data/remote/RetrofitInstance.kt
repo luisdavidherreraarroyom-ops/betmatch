@@ -7,11 +7,18 @@ object RetrofitInstance {
 
     private const val BASE_URL = "https://6aa3913de7ae868cdf7b097f.mockapi.io/"
 
-    val api: TournamentApiService by lazy {
+    private val retrofit: Retrofit by lazy {
         Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-            .create(TournamentApiService::class.java)
+    }
+
+    val api: TournamentApiService by lazy {
+        retrofit.create(TournamentApiService::class.java)
+    }
+
+    val matchApi: MatchApiService by lazy {
+        retrofit.create(MatchApiService::class.java)
     }
 }

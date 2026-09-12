@@ -21,6 +21,7 @@ import com.example.betmatch.core.ui.screens.BetsScreen
 import com.example.betmatch.core.ui.screens.MatchesScreen
 import com.example.betmatch.core.ui.screens.ProfileScreen
 import com.example.betmatch.core.ui.screens.TournamentsNavHost
+import com.example.betmatch.core.ui.screens.MatchesNavHost
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -62,7 +63,7 @@ fun BetMatchApp() {
     ) {
         when (currentDestination) {
             AppDestinations.TOURNAMENTS -> TournamentsNavHost()
-            AppDestinations.MATCHES -> MatchesScreen()
+            AppDestinations.MATCHES -> MatchesNavHost()
             AppDestinations.BETS -> BetsScreen()
             AppDestinations.PROFILE -> ProfileScreen()
         }
