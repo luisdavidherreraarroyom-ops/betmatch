@@ -7,6 +7,7 @@ import androidx.room.PrimaryKey
 data class TournamentEntity(
     @PrimaryKey(autoGenerate = true)
     val id: Long = 0,
+    val remoteId: String? = null,
     val title: String,
     val rules: String,
     val maxPlayers: Int,

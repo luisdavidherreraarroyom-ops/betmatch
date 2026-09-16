@@ -45,6 +45,24 @@ class MatchViewModel(private val repository: MatchRepository) : ViewModel() {
         }
     }
 
+    fun updateMatch(match: MatchEntity, participantA: String, participantB: String, durationInSeconds: Long) {
+        viewModelScope.launch {
+            repository.updateMatch(
+                match.copy(
+                    participantA = participantA,
+                    participantB = participantB,
+                    durationInSeconds = durationInSeconds
+                )
+            )
+        }
+    }
+
+    fun deleteMatch(match: MatchEntity) {
+        viewModelScope.launch {
+            repository.deleteMatch(match)
+        }
+    }
+
     companion object {
         fun provideFactory(context: android.content.Context): ViewModelProvider.Factory =
             object : ViewModelProvider.Factory {

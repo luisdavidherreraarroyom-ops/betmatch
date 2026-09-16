@@ -6,14 +6,19 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.example.betmatch.data.database.MatchEntity
+
 @Composable
 fun CreateMatchScreen(
+    existingMatch: MatchEntity? = null,
     onSaveClick: (participantA: String, participantB: String, durationInSeconds: Long) -> Unit = { _, _, _ -> },
     onBackClick: () -> Unit = {}
 ) {
-    var participantA by remember { mutableStateOf("") }
-    var participantB by remember { mutableStateOf("") }
-    var durationText by remember { mutableStateOf("") }
+    var participantA by remember { mutableStateOf(existingMatch?.participantA ?: "") }
+    var participantB by remember { mutableStateOf(existingMatch?.participantB ?: "") }
+    var durationText by remember { mutableStateOf(existingMatch?.durationInSeconds?.toString() ?: "") }
+
+    val isEditing = existingMatch != null
 
     Scaffold { padding ->
         Column(
@@ -22,7 +27,10 @@ fun CreateMatchScreen(
             verticalArrangement = Arrangement.Center
         ) {
             Text("⚔️", style = MaterialTheme.typography.displayLarge)
-            Text("Nuevo Enfrentamiento", style = MaterialTheme.typography.headlineMedium)
+            Text(
+                if (isEditing) "Editar Enfrentamiento" else "Nuevo Enfrentamiento",
+                style = MaterialTheme.typography.headlineMedium
+            )
             Spacer(modifier = Modifier.height(16.dp))
 
             OutlinedTextField(
@@ -57,7 +65,7 @@ fun CreateMatchScreen(
                 },
                 enabled = participantA.isNotBlank() && participantB.isNotBlank() && durationText.isNotBlank()
             ) {
-                Text("Guardar y Volver")
+                Text(if (isEditing) "Guardar Cambios" else "Guardar y Volver")
             }
         }
     }

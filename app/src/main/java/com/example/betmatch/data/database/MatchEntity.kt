@@ -7,6 +7,7 @@ import androidx.room.PrimaryKey
 data class MatchEntity(
     @PrimaryKey(autoGenerate = true)
     val id: Long = 0,
+    val remoteId: String? = null,
     val tournamentId: String? = null,
     val participantA: String,
     val participantB: String,

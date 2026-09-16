@@ -6,15 +6,19 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.example.betmatch.data.database.TournamentEntity
 
 @Composable
 fun CreateTournamentScreen(
+    existingTournament: TournamentEntity? = null,
     onSaveClick: (title: String, rules: String, maxPlayers: Int) -> Unit = { _, _, _ -> },
     onBackClick: () -> Unit = {}
 ) {
-    var title by remember { mutableStateOf("") }
-    var rules by remember { mutableStateOf("") }
-    var maxPlayersText by remember { mutableStateOf("") }
+    var title by remember { mutableStateOf(existingTournament?.title ?: "") }
+    var rules by remember { mutableStateOf(existingTournament?.rules ?: "") }
+    var maxPlayersText by remember { mutableStateOf(existingTournament?.maxPlayers?.toString() ?: "") }
+
+    val isEditing = existingTournament != null
 
     Scaffold { padding ->
         Column(
@@ -23,7 +27,10 @@ fun CreateTournamentScreen(
             verticalArrangement = Arrangement.Center
         ) {
             Text("⚙️", style = MaterialTheme.typography.displayLarge)
-            Text("Configurar Torneo / Reglas Custom", style = MaterialTheme.typography.headlineMedium)
+            Text(
+                if (isEditing) "Editar Torneo" else "Configurar Torneo / Reglas Custom",
+                style = MaterialTheme.typography.headlineMedium
+            )
             Spacer(modifier = Modifier.height(16.dp))
 
             OutlinedTextField(
@@ -58,7 +65,7 @@ fun CreateTournamentScreen(
                 },
                 enabled = title.isNotBlank() && rules.isNotBlank() && maxPlayersText.isNotBlank()
             ) {
-                Text("Guardar y Volver")
+                Text(if (isEditing) "Guardar Cambios" else "Guardar y Volver")
             }
         }
     }

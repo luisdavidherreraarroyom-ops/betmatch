@@ -3,6 +3,8 @@ package com.example.betmatch.core.ui.screens
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -13,7 +15,9 @@ import com.example.betmatch.data.database.TournamentEntity
 @Composable
 fun TournamentsScreen(
     tournaments: List<TournamentEntity> = emptyList(),
-    onCreateTournamentClick: () -> Unit = {}
+    onCreateTournamentClick: () -> Unit = {},
+    onTournamentClick: (Long) -> Unit = {},
+    onDeleteClick: (TournamentEntity) -> Unit = {}
 ) {
     Scaffold(
         floatingActionButton = {
@@ -40,11 +44,22 @@ fun TournamentsScreen(
                 verticalArrangement = Arrangement.spacedBy(12.dp)
             ) {
                 items(tournaments) { tournament ->
-                    Card(modifier = Modifier.fillMaxWidth()) {
-                        Column(modifier = Modifier.padding(16.dp)) {
-                            Text(tournament.title, style = MaterialTheme.typography.titleLarge)
-                            Text("Reglas: ${tournament.rules}", style = MaterialTheme.typography.bodyMedium)
-                            Text("Máx. jugadores: ${tournament.maxPlayers}", style = MaterialTheme.typography.bodyMedium)
+                    Card(
+                        modifier = Modifier.fillMaxWidth(),
+                        onClick = { onTournamentClick(tournament.id) }
+                    ) {
+                        Row(
+                            modifier = Modifier.fillMaxWidth().padding(16.dp),
+                            horizontalArrangement = Arrangement.SpaceBetween
+                        ) {
+                            Column(modifier = Modifier.weight(1f)) {
+                                Text(tournament.title, style = MaterialTheme.typography.titleLarge)
+                                Text("Reglas: ${tournament.rules}", style = MaterialTheme.typography.bodyMedium)
+                                Text("Máx. jugadores: ${tournament.maxPlayers}", style = MaterialTheme.typography.bodyMedium)
+                            }
+                            IconButton(onClick = { onDeleteClick(tournament) }) {
+                                Icon(Icons.Default.Delete, contentDescription = "Eliminar torneo")
+                            }
                         }
                     }
                 }

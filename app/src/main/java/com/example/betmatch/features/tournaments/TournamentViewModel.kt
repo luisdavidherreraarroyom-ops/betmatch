@@ -14,7 +14,6 @@ import kotlinx.coroutines.launch
 
 class TournamentViewModel(private val repository: TournamentRepository) : ViewModel() {
 
-
     val tournaments: StateFlow<List<TournamentEntity>> = repository.allTournaments
         .stateIn(
             scope = viewModelScope,
@@ -37,6 +36,24 @@ class TournamentViewModel(private val repository: TournamentRepository) : ViewMo
                     maxPlayers = maxPlayers
                 )
             )
+        }
+    }
+
+    fun updateTournament(tournament: TournamentEntity, title: String, rules: String, maxPlayers: Int) {
+        viewModelScope.launch {
+            repository.updateTournament(
+                tournament.copy(
+                    title = title,
+                    rules = rules,
+                    maxPlayers = maxPlayers
+                )
+            )
+        }
+    }
+
+    fun deleteTournament(tournament: TournamentEntity) {
+        viewModelScope.launch {
+            repository.deleteTournament(tournament)
         }
     }
 

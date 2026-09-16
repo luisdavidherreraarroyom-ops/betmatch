@@ -3,6 +3,8 @@ package com.example.betmatch.core.ui.screens
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -14,7 +16,8 @@ import com.example.betmatch.data.database.MatchEntity
 fun MatchesScreen(
     matches: List<MatchEntity> = emptyList(),
     onCreateMatchClick: () -> Unit = {},
-    onMatchClick: (Long) -> Unit = {}
+    onMatchClick: (Long) -> Unit = {},
+    onDeleteClick: (MatchEntity) -> Unit = {}
 ) {
     Scaffold(
         floatingActionButton = {
@@ -45,13 +48,21 @@ fun MatchesScreen(
                         modifier = Modifier.fillMaxWidth(),
                         onClick = { onMatchClick(match.id) }
                     ) {
-                        Column(modifier = Modifier.padding(16.dp)) {
-                            Text(
-                                "${match.participantA} vs ${match.participantB}",
-                                style = MaterialTheme.typography.titleLarge
-                            )
-                            Text("Estado: ${match.status}", style = MaterialTheme.typography.bodyMedium)
-                            Text("Duración: ${match.durationInSeconds}s", style = MaterialTheme.typography.bodyMedium)
+                        Row(
+                            modifier = Modifier.fillMaxWidth().padding(16.dp),
+                            horizontalArrangement = Arrangement.SpaceBetween
+                        ) {
+                            Column(modifier = Modifier.weight(1f)) {
+                                Text(
+                                    "${match.participantA} vs ${match.participantB}",
+                                    style = MaterialTheme.typography.titleLarge
+                                )
+                                Text("Estado: ${match.status}", style = MaterialTheme.typography.bodyMedium)
+                                Text("Duración: ${match.durationInSeconds}s", style = MaterialTheme.typography.bodyMedium)
+                            }
+                            IconButton(onClick = { onDeleteClick(match) }) {
+                                Icon(Icons.Default.Delete, contentDescription = "Eliminar partido")
+                            }
                         }
                     }
                 }

@@ -11,7 +11,8 @@ import com.example.betmatch.data.database.MatchEntity
 @Composable
 fun MatchDetailScreen(
     match: MatchEntity?,
-    onBackClick: () -> Unit = {}
+    onBackClick: () -> Unit = {},
+    onEditClick: () -> Unit = {}
 ) {
     Scaffold { padding ->
         Column(
@@ -32,6 +33,10 @@ fun MatchDetailScreen(
                 Text("Estado: ${match.status}")
                 Text("Duración: ${match.durationInSeconds} segundos")
                 Text("Bolsa de apuestas: $${match.totalBetPool}")
+                Spacer(modifier = Modifier.height(16.dp))
+                Button(onClick = onEditClick) {
+                    Text("Editar")
+                }
             } else {
                 Text("Partido no encontrado")
             }
