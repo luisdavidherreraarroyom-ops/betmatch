@@ -18,9 +18,12 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import com.example.betmatch.core.ui.AppDestinations
 import com.example.betmatch.core.ui.screens.BetsNavHost
-import com.example.betmatch.core.ui.screens.ProfileNavHost
+import com.example.betmatch.core.ui.screens.BetsScreen
+import com.example.betmatch.core.ui.screens.MatchesScreen
+import com.example.betmatch.core.ui.screens.ProfileScreen
 import com.example.betmatch.core.ui.screens.TournamentsNavHost
 import com.example.betmatch.core.ui.screens.MatchesNavHost
+import com.example.betmatch.core.ui.screens.ProfileNavHost
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
