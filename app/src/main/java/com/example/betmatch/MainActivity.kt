@@ -17,11 +17,13 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import com.example.betmatch.core.ui.AppDestinations
+import com.example.betmatch.core.ui.screens.BetsNavHost
 import com.example.betmatch.core.ui.screens.BetsScreen
 import com.example.betmatch.core.ui.screens.MatchesScreen
 import com.example.betmatch.core.ui.screens.ProfileScreen
 import com.example.betmatch.core.ui.screens.TournamentsNavHost
 import com.example.betmatch.core.ui.screens.MatchesNavHost
+import com.example.betmatch.core.ui.screens.ProfileNavHost
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -64,8 +66,8 @@ fun BetMatchApp() {
         when (currentDestination) {
             AppDestinations.TOURNAMENTS -> TournamentsNavHost()
             AppDestinations.MATCHES -> MatchesNavHost()
-            AppDestinations.BETS -> BetsScreen()
-            AppDestinations.PROFILE -> ProfileScreen()
+            AppDestinations.BETS -> BetsNavHost()
+            AppDestinations.PROFILE -> ProfileNavHost()
         }
     }
 }
