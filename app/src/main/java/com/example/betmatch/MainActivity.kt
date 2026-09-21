@@ -9,6 +9,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteScaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -18,19 +19,16 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import com.example.betmatch.core.ui.AppDestinations
 import com.example.betmatch.core.ui.screens.BetsNavHost
-import com.example.betmatch.core.ui.screens.BetsScreen
-import com.example.betmatch.core.ui.screens.MatchesScreen
-import com.example.betmatch.core.ui.screens.ProfileScreen
+import com.example.betmatch.core.ui.screens.ProfileNavHost
 import com.example.betmatch.core.ui.screens.TournamentsNavHost
 import com.example.betmatch.core.ui.screens.MatchesNavHost
-import com.example.betmatch.core.ui.screens.ProfileNavHost
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            MaterialTheme {
+            MaterialTheme(colorScheme = darkColorScheme()) {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
